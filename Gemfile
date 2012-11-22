@@ -10,7 +10,7 @@ group :development, :test do
 end
 
 group :production do
-  gem 'mysql2'
+  gem 'mysql2', ">= 0.3.11"
   gem 'passenger'
   gem 'activerecord-mysql2-adapter'
 end
