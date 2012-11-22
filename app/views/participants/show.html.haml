@@ -1,0 +1,26 @@
+%div.page-header
+  %h2
+    =@participant.name
+    -if @owner
+      %small
+        =" ["
+        =link_to "Edit", edit_participant_path(@participant.id)
+        ]
+  %p= "Total points: #{@participant.points}"
+
+%div{:class => "container-fluid"}
+  %div{:class => "row-fluid"}
+    %div{:class => "span6 well"}
+      %h4 CHALLENGES CREATED
+      %ul{:class => "nav nav-list"}
+        - @participant.challenges.each do |c|
+          %li= link_to "#{c.name} [#{c.category} - #{c.points} pts]", challenge_path(c.id)
+    %div{:class => "span6 well"}
+      %h4 CHALLENGES SOLVED
+      %ul{:class => "nav nav-list"}
+        - @participant.solved_challenges.each do |c|
+          %li= link_to "#{c.name} [#{c.category} - #{c.points} pts]", challenge_path(c.id)
+
+%hr
+
+= link_to 'Back to Participants', participants_path, :class => "btn btn-large"

@@ -1,0 +1,15 @@
+%div.page-header
+  %h2 Edit your profile information
+
+= form_tag participant_path(@participant.id), :method => :put, :class => "form-horizontal" do
+  %fieldset
+    %div.control-group
+      = label :participant, :name, 'Your Name', :class => "control-label"
+      %div.controls
+        = text_field :participant, :name, :class => "input-xlarge", :value => @participant.name
+
+    %div.form-actions
+      = submit_tag 'Edit', :class => "btn btn-primary"
+      = link_to 'Cancel', participant_path(@participant.id), :class => "btn"
+
+= button_to 'Delete your profile', participant_path(@participant.id), :method => :delete, :confirm => 'Are you sure you want to delete your profile?', :class => "btn btn-danger"

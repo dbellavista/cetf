@@ -1,0 +1,7 @@
+%h1 Insert a new Participant!
+= form_tag participants_path, :method => :post do
+
+  = label :participant, :name, 'Your Name'
+  = text_field :participant, :name
+
+  = submit_tag 'Register'

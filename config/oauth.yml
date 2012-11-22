@@ -1,0 +1,14 @@
+google:
+  key: ""
+  secret: ""
+  parameters: { access_type: 'online', scope: "https://www.googleapis.com/auth/userinfo.profile"}
+
+facebook:
+  key: ""
+  secret: ""
+  parameters: { access_type: 'online'}
+
+twitter:
+  key: ""
+  secret: ""
+  parameters: { access_type: 'online'}

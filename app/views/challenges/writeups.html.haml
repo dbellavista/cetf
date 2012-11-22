@@ -1,0 +1,30 @@
+%div.page-header
+  %h2
+    = @challenge.name
+    - if !@challenge.author.nil?
+      %small= " by " + @challenge.author.name
+  %p="#{@challenge.category} challenge, #{@challenge.points} pts"
+
+%div{:class => "container-fluid"}
+  %div{:class => "row-fluid well"}
+    %div{:class => "span7"}
+      %p= @challenge.text
+    %div{:class => "span4 divider"}
+      %ul{:class => "nav nav-list"}
+        %li.nav-header ATTACHMENTS
+        - @challenge.attachments.each do |a|
+          %li=link_to a.name, attachment_path(a.id)
+        %li.nav-header SOLVED BY
+        - @challenge.solvers.each do |a|
+          %li=link_to "#{a.name}", participant_path(a.id)
+
+  %div{:class => "row-fluid "}
+    %div.span3
+      = button_to 'Back to Challenge', challenge_path(@challenge.id), :method => :get, :class => "btn btn-large"
+
+  -@solutions.each_slice(2) do |as|
+    %div{:class => "row-fluid"}
+      - as.each do |s|
+        %div{:class => "span6 well"}
+          %h3=s.participant.name
+          %p=s.writeup

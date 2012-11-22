@@ -1,0 +1,36 @@
+%div.hero-unit
+  %h2 Challenges
+  %p Click on a challenge and try to solve it! Or contribute to the CeTF creating a new one.
+  - if @logged
+    = link_to 'Create a new challenge', new_challenge_path, :class => "btn btn-primary btn-large"
+  - else
+    = link_to 'Login to create a challenge', login_path, :class => "btn btn-primary btn-large"
+
+%table{:id => "challenges", :class => "table table-striped table-bordered",}
+  %thead
+    %tr
+      %th Title
+      %th Points
+      %th Category
+      %th Author
+      %th Solved
+  %tbody{ "data-provides" => "rowlink"}
+    - @challenges.each do |c|
+      - if c.solvers.include? current_participant
+        - @row = "success"
+      - elsif !c.author.nil? and c.author == current_participant
+        - @row = "warning"
+      - else
+        - @row = ""
+      %tr{:class => @row}
+        %td
+          =link_to "", challenge_path(c), :class => "rowlink"
+          %span.link= c.name
+        %td= c.points
+        %td= c.category
+        %td
+          -if !c.author.nil?
+            =c.author.name
+          -else
+            ='-'
+        %td= c.solvers.length

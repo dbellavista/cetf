@@ -1,0 +1,71 @@
+%div.page-header
+  %h2
+    = @challenge.name
+    - if !@challenge.author.nil?
+      %small= " by " + @challenge.author.name
+  %p="#{@challenge.category} challenge, #{@challenge.points} pts"
+
+%div{:class => "container-fluid"}
+  %div{:class => "row-fluid well"}
+    %div{:class => "span7"}
+      %p= @challenge.text
+    %div{:class => "span4 divider"}
+      %ul{:class => "nav nav-list"}
+        %li.nav-header ATTACHMENTS
+        - @challenge.attachments.each do |a|
+          %li=link_to a.name, attachment_path(a.id)
+        %li.nav-header SOLVED BY
+        - @challenge.solvers.each do |a|
+          %li=link_to "#{a.name}", participant_path(a.id)
+
+  %div{:class => "row-fluid "}
+    %div.span3
+      = button_to 'Challenges List', challenges_path, :method => :get, :class => "btn btn-large"
+    -if @there_are_writeups
+      -if @there_are_other_writeups
+        %div.span3
+          =button_to "Show Other Writeups", writeups_challenge_path(@challenge.id), :class => "btn btn-primary btn-large", :method => "get"
+      - elsif @own
+        %div.span3
+          =button_to "Show Writeups", writeups_challenge_path(@challenge.id), :class => "btn btn-primary btn-large", :method => "get"
+      - elsif !@solved and @logged
+        %div.span3
+          =button_to "Show Writeups", writeups_challenge_path(@challenge.id), :class => "btn btn-danger btn-large", :confirm => "Are you giving up?", :method => "get"
+
+    -if @own
+      %div.span3
+        = button_to 'Edit the challenge', edit_challenge_path(@challenge.id), :method => :get, :class => "btn btn-primary btn-large"
+      %div.span3
+        = button_to 'Delete the challenge', challenge_path(@challenge.id), :method => :delete, :confirm => 'Are you sure you want to delete your challenge?', :class => "btn btn-danger btn-large"
+
+  %div{:class => "row-fluid "}
+
+    -if @solved
+      = form_tag writeup_challenge_path(@challenge), :method => :post, :class => "form-horizzontal" do
+        %fieldset
+          %legend
+            -if @solution.writeup.nil? or @solution.writeup.empty?
+              Write your own writeup!
+            -else
+              Edit your writeup!
+          %div.control-group
+            %div.controls
+              = text_area :solution, :writeup, :class => "input-xlarge"
+
+          %div.form-actions
+            = submit_tag 'Save', :class => "btn btn-primary btn-large"
+            = link_to 'Discard changes', challenge_path(@challenge),  :class => "btn btn-large"
+    - elsif !@own and @logged
+      = form_tag solve_challenge_path(@challenge), :method => :post, :class => "form-horizontal" do
+        %fieldset
+          %legend Submit a solution!
+
+          %div.control-group
+            = label :solution, :solution, 'Solution:', :class => "control-label"
+            %div.controls
+              = text_field :solution, :solution, :class => "input-xlarge"
+              %p.help-block Insert the flag obtained solving the challenge
+
+          %div.form-actions
+            = submit_tag 'Submit solution', :class => "btn btn-primary btn-large"
+

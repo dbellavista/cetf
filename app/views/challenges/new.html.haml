@@ -1,0 +1,37 @@
+%div.page-header
+  %h2 Insert a new Challenge!
+
+= form_tag challenges_path, :multipart => true, :method => :post, :class => "form-horizontal" do
+  %fieldset
+    %div.control-group
+      = label :challenge, :name, 'Challenge Name', :class => "control-label"
+      %div.controls
+        = text_field :challenge, :name, :class => "input-xlarge"
+
+    %div.control-group
+      = label :challenge, :points, 'Challenge points', :class => "control-label"
+      %div.controls
+        = number_field :challenge, :points
+
+    %div.control-group
+      = label :challenge, :category, 'Category', :class => "control-label"
+      %div.controls
+        = text_field :challenge, :category
+
+    %div.control-group
+      = label :challenge, :text, 'Challenge text', :class => "control-label"
+      %div.controls
+        = text_area :challenge, :text, :class => "input-xlarge"
+
+    %div.control-group
+      = label :challenge, :solution, 'Solution (Flag)', :class => "control-label"
+      %div.controls
+        = text_field :challenge, :solution
+
+    %div.control-group#add_div
+      %div.controls
+        %input{:type => "button" , :id => "add_button", :class => "btn", :value => "Add another attachment" }
+
+    %div.form-actions
+      = submit_tag 'Create', :class => "btn btn-primary"
+      = link_to 'Cancel', challenges_path, :class => "btn"

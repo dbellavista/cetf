@@ -1,0 +1,49 @@
+%div.page-header
+  %h2 Edit the challenge
+
+= form_tag challenge_path(@challenge.id), :multipart => true, :method => :put, :class => "form-horizontal" do
+  %fieldset
+    %div.control-group
+      = label :challenge, :name, 'Challenge Name', :class => "control-label"
+      %div.controls
+        = text_field :challenge, :name, :class => "input-xlarge"
+
+    %div.control-group
+      = label :challenge, :points, 'Challenge points', :class => "control-label"
+      %div.controls
+        = number_field :challenge, :points
+
+    %div.control-group
+      = label :challenge, :category, 'Category', :class => "control-label"
+      %div.controls
+        = text_field :challenge, :category
+
+    %div.control-group
+      = label :challenge, :text, 'Challenge text', :class => "control-label"
+      %div.controls
+        = text_area :challenge, :text, :class => "input-xlarge"
+
+    %div.control-group
+      = label :challenge, :solution, 'Solution (Flag)', :class => "control-label"
+      %div.controls
+        = text_field :challenge, :solution
+
+    - if !@challenge.attachments.empty?
+      %div.control-group
+        = label :rem_attachments, 'Uncheck to delete an attachment', :class => "control-label"
+        %div.controls
+          - @challenge.attachments.each do |a|
+            %label.checkbox
+              = check_box :rem_attachments, a.id, :checked => true
+              = File.basename(a.file)
+
+    %div.control-group#add_div
+      %div.controls
+        %input{:type => "button" , :id => "add_button", :class => "btn", :value => "Add another attachment" }
+
+    %div{:class => "form-actions"}
+      = submit_tag 'Update', :class => "btn btn-primary btn-large"
+      = link_to 'Cancel', challenge_path(@challenge.id), :class => "btn btn-large"
+
+
+= button_to 'Delete the challenge', challenge_path(@challenge.id), :method => :delete, :confirm => 'Are you sure you want to delete your challenge?', :class => "btn btn-danger btn-large"

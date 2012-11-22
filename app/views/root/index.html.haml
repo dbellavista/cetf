@@ -1,0 +1,20 @@
+%hr
+%div.pagination-centered
+  %h1 CeTF - The open CeSeNA CTF
+  %p.lead
+    CeTF is a project developed by the CeSeNA Security team, a group of
+    students from Computer Engineering and Computer Science courses of University
+    of Bologna (
+    = link_to "http://cesena.ing2.unibo.it/", "http://cesena.ing2.unibo.it"
+    )
+  - if current_participant.nil?
+    %p.lead
+      What are you waiting for? Login with Google, Facebook or Twitter account
+      and start creating and solving challenges!
+    = link_to "Login now!", login_path, :class => "btn btn-success btn-large"
+  - else
+    %p.lead
+      = "Welcome #{current_participant.name}!"
+    = link_to "Go to challenges!", challenges_path, :class => "btn btn-success btn-large"
+
+%hr

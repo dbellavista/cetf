@@ -1,0 +1,6 @@
+%div.header
+  %h2 Login with
+
+%ul{ :class => "nav nav-tabs nav-stacked"}
+  -@services.each do |s|
+    %li=link_to s.capitalize, "/auth/#{s}"

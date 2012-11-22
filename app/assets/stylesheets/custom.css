@@ -1,0 +1,13 @@
+body {
+  padding-top: 60px;
+}
+
+.row-fluid .divider {
+  margin-left: 19px;
+  padding-left: 19px;
+  border-left: 1px solid #ccc;
+}
+
+.rowlink .link {
+  color: #0088cc;
+}
