@@ -1,6 +1,7 @@
 %div.hero-unit
   %h2 Challenges
   %p Click on a challenge and try to solve it! Or contribute to the CeTF creating a new one.
+  %p Note that every challenge and the respective attachments are under GNU GPL 3.0 license.
   - if @logged
     = link_to 'Create a new challenge', new_challenge_path, :class => "btn btn-primary btn-large"
   - else

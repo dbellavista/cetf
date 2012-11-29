@@ -4,11 +4,6 @@ class ParticipantsController < ApplicationController
     @participants = Participant.order("points DESC").all
   end
 
-  def new
-      flash[:error] = "Direct registration is no more supported"
-    redirect_to root_url
-  end
-
   def edit
     @owner = is_owner? params[:id].to_i
     if !@owner
@@ -23,14 +18,6 @@ class ParticipantsController < ApplicationController
     @owner = is_owner? params[:id].to_i
   end
 
-  def create
-    @participant = Participant.new()
-    @participant.name = params[:participant][:name]
-    @participant.points = 0
-    @participant.save!
-    redirect_to participants_path
-  end
-
   def update
     if !is_owner? params[:id].to_i
       flash[:error] = "An error occurred while updating the profile information"
@@ -38,6 +25,8 @@ class ParticipantsController < ApplicationController
     end
     participant = current_participant
     participant.name = params[:participant][:name]
+    participant.policy_new_challenge = params[:participant][:policy_new_challenge]
+    participant.policy_challenge_solved = params[:participant][:policy_challenge_solved]
     participant.save!
     redirect_to participants_path
   end

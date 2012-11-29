@@ -4,3 +4,22 @@
 %ul{ :class => "nav nav-tabs nav-stacked"}
   -@services.each do |s|
     %li=link_to s.capitalize, "/auth/#{s}"
+
+%p Logging you agree with the Terms and Conditions
+
+%div.well
+  %h1 Terms and conditions
+  %ul
+    %li The login using one of the listed services implies a registration to this site.
+    %li In particular your id, provider, name and email will be recorded in the CeTF database.
+    %li CeTF will never reveal or make public your e-mail address. Your name can be seen in your profile page, accessible by anyone.
+    %li Your name can be changed. In that case the information of your original name will be lost from the CeTF databases.
+    %li Your email cannot be changed, but it can be seen only by you.
+    %li You will receive emails according to the policy editable from your profile page.
+    %li You can in any moment delete your account and all the related information from our server.
+  %ul
+    %li You can insert as challenge or attachment everything under GNU GPL 3.0 license or equivalent.
+    %li Every challenge, attachment or code you invented, remains your property but it's automatically released under GPL 3.0 license.
+    %li If you delete a challenge you created, all information and attachments will be erased from our server. Note that anyone can copy and alter the challenge title, text and attachment, wrt of the GNU GPL 3.0 license.
+
+Enjoy!

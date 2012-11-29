@@ -13,7 +13,11 @@ class SessionsController < ApplicationController
 
   def create
     auth = request.env["omniauth.auth"]
-    participant = Participant.find_by_provider_and_uid(auth["provider"], auth["uid"]) || Participant.create_with_omniauth(auth)
+    participant = Participant.find_by_provider_and_uid(auth["provider"], auth["uid"])
+    if participant.nil?
+      participant = Participant.create_with_omniauth(auth)
+      SystemMailer.welcome(participant)
+    end
 
     reset_session
     session[:participant_id] = participant.id

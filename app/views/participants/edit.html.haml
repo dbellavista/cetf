@@ -6,7 +6,20 @@
     %div.control-group
       = label :participant, :name, 'Your Name', :class => "control-label"
       %div.controls
-        = text_field :participant, :name, :class => "input-xlarge", :value => @participant.name
+        = text_field :participant, :name, :class => "input-xlarge"
+    %div.control-group
+      = label :participant, :email, 'Your Email', :class => "control-label"
+      %div.controls
+        = text_field :participant, :email, :class => "input-xlarge", :disabled => true
+    %div.control-group
+      = label :participant, :policy, 'Email policies:', :class => "control-label"
+      %div.controls
+          %label.checkbox
+            = check_box :participant, :policy_new_challenge
+            Receive an email when a new challenge is inserted.
+          %label.checkbox
+            = check_box :participant, :policy_challenge_solved
+            Receive an email when someone solve one of your challenges.
 
     %div.form-actions
       = submit_tag 'Edit', :class => "btn btn-primary"

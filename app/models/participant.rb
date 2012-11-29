@@ -15,11 +15,15 @@ class Participant < ActiveRecord::Base
   end
 
   def self.create_with_omniauth(auth)
-    create! do |partecipant|
-      partecipant.provider = auth["provider"]
-      partecipant.uid = auth["uid"]
-      partecipant.name = auth["info"]["name"]
-      partecipant.points = 0
+    create! do |participant|
+      participant.provider = auth["provider"]
+      participant.uid = auth["uid"]
+      participant.name = auth["info"]["name"]
+      # TODO: check oauth field
+      participant.email = auth["info"]["email"]
+      participant.policy_new_challenge = true
+      participant.policy_challenge_solved = true
+      participant.points = 0
     end
   end
 

@@ -43,6 +43,9 @@ class ChallengesController < ApplicationController
       solver.save!
       @challenge.solvers << solver
       @challenge.save!
+      if !@challenge.author.nil? do
+        SystemMailer.challenge_solved(@challenge.author, @challenge)
+      end
       flash[:notice] = "Congratz #{solver.name}!!! +#{@challenge.points} points! :D"
     else
       flash[:error] = "Wrong solution... :("
@@ -168,6 +171,11 @@ class ChallengesController < ApplicationController
       @challenge.author.points += Challenge.pointsPerChallengeInsertion
       @challenge.author.save
 
+      Participant.all.each do |p|
+        if p.id != @challenge.author.id
+          SystemMailer.new_challenge(p, challenge)
+        end
+      end
       flash[:notice] = "#{@challenge.name} was successfully created. +10 points :)"
       redirect_to challenges_path
     rescue Exception => e
