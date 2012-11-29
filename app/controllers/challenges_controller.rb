@@ -43,8 +43,8 @@ class ChallengesController < ApplicationController
       solver.save!
       @challenge.solvers << solver
       @challenge.save!
-      if !@challenge.author.nil? do
-        SystemMailer.challenge_solved(@challenge.author, @challenge)
+      if !@challenge.author.nil?
+        SystemMailer.challenge_solved(@challenge.author, @challenge).deliver
       end
       flash[:notice] = "Congratz #{solver.name}!!! +#{@challenge.points} points! :D"
     else
@@ -173,7 +173,7 @@ class ChallengesController < ApplicationController
 
       Participant.all.each do |p|
         if p.id != @challenge.author.id
-          SystemMailer.new_challenge(p, challenge)
+          SystemMailer.new_challenge(p, @challenge).deliver
         end
       end
       flash[:notice] = "#{@challenge.name} was successfully created. +10 points :)"

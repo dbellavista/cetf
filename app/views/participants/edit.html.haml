@@ -14,12 +14,12 @@
     %div.control-group
       = label :participant, :policy, 'Email policies:', :class => "control-label"
       %div.controls
-          %label.checkbox
-            = check_box :participant, :policy_new_challenge
-            Receive an email when a new challenge is inserted.
-          %label.checkbox
-            = check_box :participant, :policy_challenge_solved
-            Receive an email when someone solve one of your challenges.
+        %label.checkbox
+          = check_box :participant, :policy_new_challenge
+          Receive an email when a new challenge is inserted.
+        %label.checkbox
+          = check_box :participant, :policy_challenge_solved
+          Receive an email when someone solve one of your challenges.
 
     %div.form-actions
       = submit_tag 'Edit', :class => "btn btn-primary"

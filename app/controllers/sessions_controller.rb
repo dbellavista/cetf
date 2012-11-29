@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     participant = Participant.find_by_provider_and_uid(auth["provider"], auth["uid"])
     if participant.nil?
       participant = Participant.create_with_omniauth(auth)
-      SystemMailer.welcome(participant)
+      SystemMailer.welcome(participant).deliver
     end
 
     reset_session
