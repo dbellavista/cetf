@@ -1,5 +1,5 @@
 class SystemMailer < ActionMailer::Base
-  default from: "not_reply@anesec.it"
+  default from: "\"CeSeNA CeTF Team\" <cetf.not_reply@anesec.it>"
 
   def welcome(participant)
     @participant = participant
