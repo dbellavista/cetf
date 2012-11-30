@@ -53,6 +53,6 @@ class ParticipantsController < ApplicationController
   private
 
   def is_owner?(id)
-    !current_participant.nil? and current_participant.id == id
+    !current_participant.nil? & (current_participant.id == id)
   end
 end

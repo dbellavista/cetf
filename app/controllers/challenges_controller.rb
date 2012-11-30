@@ -44,7 +44,7 @@ class ChallengesController < ApplicationController
       @challenge.solvers << solver
       @challenge.save!
       if !@challenge.author.nil?
-        SystemMailer.challenge_solved(@challenge.author, @challenge).deliver
+        SystemMailer.challenge_solved(solver, @challenge).deliver
       end
       flash[:notice] = "Congratz #{solver.name}!!! +#{@challenge.points} points! :D"
     else
@@ -58,7 +58,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(id)
     @participant = current_participant
 
-    @own = !@participant.nil? and !@challenge.author.nil? and @challenge.author.id == current_participant.id
+    @own = !@challenge.author.nil? & !@participant.nil? & (@challenge.author.id == current_participant.id)
 
     @there_are_writeups = !@challenge.solutions.where('writeup <> ""').empty?
 
@@ -74,12 +74,14 @@ class ChallengesController < ApplicationController
   def destroy
     if !logged?
       redirect_to challenge_path(params[:id])
+      return
     end
 
     @challenge = Challenge.find(params[:id])
     if @challenge.author.nil? or @challenge.author.id != current_participant.id
       flash[:error] = "You must be the author in order to delete the challenge"
       redirect_to challenges_path(params[:id])
+      return
     end
     points = @challenge.points
     old_solvers = @challenge.solvers
@@ -106,6 +108,7 @@ class ChallengesController < ApplicationController
   def edit
     if !logged?
       redirect_to challenge_path(params[:id])
+      return
     end
     @challenge = Challenge.find(params[:id])
     if @challenge.author.nil? or current_participant.id != @challenge.author.id
@@ -116,12 +119,14 @@ class ChallengesController < ApplicationController
   def new
     if !logged?
       redirect_to challenges_path
+      return
     end
   end
 
   def update
     if !logged?
       redirect_to challenge_path(params[:id])
+      return
     end
     begin
 
@@ -151,6 +156,7 @@ class ChallengesController < ApplicationController
       rollbackUpload files
       flash[:error] = "Error updating the challenge: #{e.message}"
       redirect_to challenges_path
+      return
     end
   end
 
@@ -158,6 +164,7 @@ class ChallengesController < ApplicationController
     if !logged?
       flash[:error] = "You must be logged in order to insert new challenges"
       redirect_to challenges_path
+      return
     end
     begin
 

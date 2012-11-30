@@ -19,7 +19,7 @@ class SystemMailer < ActionMailer::Base
     @challenge = challenge
     url = "https://cesena.ing2.unibo.it:8080/"
     @challenge_url = url + challenge_path(@challenge.id)
-    if !participant.email.nil?
+    if !participant.email.nil? & participant.policy_new_challenge
         mail(:to => participant.email, :subject => "CeTF - a new challenge for you!") do |format|
           format.text
         end
@@ -32,7 +32,7 @@ class SystemMailer < ActionMailer::Base
     url = "https://cesena.ing2.unibo.it:8080/"
     @challenge_url = url + challenge_path(@challenge.id)
     @challenges_url = url + challenges_path
-    if !participant.email.nil?
+    if !participant.email.nil? & @challenge.author.policy_challenge_solved
         mail(:to => @challenge.author.email, :subject => "CeTF - your challenge has been solved!") do |format|
           format.text
         end

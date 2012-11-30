@@ -28,7 +28,7 @@
       - elsif @own
         %div.span3
           =button_to "Show Writeups", writeups_challenge_path(@challenge.id), :class => "btn btn-primary btn-large", :method => "get"
-      - elsif !@solved and @logged
+      - elsif !@solved & @logged
         %div.span3
           =button_to "Show Writeups", writeups_challenge_path(@challenge.id), :class => "btn btn-danger btn-large", :confirm => "Are you giving up?", :method => "get"
 
@@ -44,7 +44,7 @@
       = form_tag writeup_challenge_path(@challenge), :method => :post, :class => "form-horizzontal" do
         %fieldset
           %legend
-            -if @solution.writeup.nil? or @solution.writeup.empty?
+            -if @solution.writeup.nil? | @solution.writeup.empty?
               Write your own writeup!
             -else
               Edit your writeup!
@@ -55,7 +55,7 @@
           %div.form-actions
             = submit_tag 'Save', :class => "btn btn-primary btn-large"
             = link_to 'Discard changes', challenge_path(@challenge),  :class => "btn btn-large"
-    - elsif !@own and @logged
+    - elsif !@own & @logged
       = form_tag solve_challenge_path(@challenge), :method => :post, :class => "form-horizontal" do
         %fieldset
           %legend Submit a solution!
