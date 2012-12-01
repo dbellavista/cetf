@@ -58,7 +58,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(id)
     @participant = current_participant
 
-    @own = !@challenge.author.nil? & !@participant.nil? & (@challenge.author.id == current_participant.id)
+    @own = !@challenge.author.nil? && !@participant.nil? && (@challenge.author.id == current_participant.id)
 
     @there_are_writeups = !@challenge.solutions.where('writeup <> ""').empty?
 
