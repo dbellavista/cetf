@@ -38,6 +38,9 @@ gem 'google-api-omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 
+# ReCaptcha
+gem 'recaptcha', :require => 'recaptcha/rails'
+
 # File uploader
 #gem "paperclip"
 

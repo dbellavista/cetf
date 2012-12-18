@@ -121,6 +121,7 @@ class ChallengesController < ApplicationController
       redirect_to challenges_path
       return
     end
+    @challenge = Challenge.new()
   end
 
   def update
@@ -134,6 +135,7 @@ class ChallengesController < ApplicationController
 
       @challenge = Challenge.find(params[:id])
       fill_challenge
+      @challenge.save!
 
       rem_files = []
       if !params[:rem_attachments].nil?
@@ -168,10 +170,19 @@ class ChallengesController < ApplicationController
     end
     begin
 
+      if !verify_recaptcha
+        flash[:error] = "Sorry wrong captcha!"
+        @challenge = Challenge.new()
+        fill_challenge
+        render :action => :new
+        return
+      end
+
       files = save_files
 
       @challenge = Challenge.new()
       fill_challenge
+      @challenge.save!
 
       create_attachments files, @challenge.id
 
@@ -217,7 +228,6 @@ class ChallengesController < ApplicationController
       @challenge.author = current_participant
       @challenge.points = params[:challenge][:points]
       @challenge.category = params[:challenge][:category]
-      @challenge.save!
   end
 
   def create_attachments files, id
