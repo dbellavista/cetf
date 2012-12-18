@@ -32,6 +32,8 @@
       %div.controls
         %input{:type => "button" , :id => "add_button", :class => "btn", :value => "Add another attachment" }
 
+    = recaptcha_tags :ssl => true
+
     %div.form-actions
       = submit_tag 'Create', :class => "btn btn-primary"
       = link_to 'Cancel', challenges_path, :class => "btn"

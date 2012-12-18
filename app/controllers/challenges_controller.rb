@@ -168,6 +168,12 @@ class ChallengesController < ApplicationController
     end
     begin
 
+      if !verify_recaptcha
+        flash[:error] = "Sorry wrong recaptcha!"
+        redirect_to new_challenge_path
+        return
+      end
+
       files = save_files
 
       @challenge = Challenge.new()
