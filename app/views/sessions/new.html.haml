@@ -3,7 +3,10 @@
 
 %ul{ :class => "nav nav-tabs nav-stacked"}
   -@services.each do |s|
-    %li=link_to s.capitalize, "/auth/#{s}"
+    -msg = s.capitalize
+    -if s == "twitter"
+      -msg += " (note: user's email information is not transmitted. For a full CeTF experience, we recommend another login method)"
+    %li=link_to msg, "/auth/#{s}"
 
 %p Logging you agree with the Terms and Conditions
 
