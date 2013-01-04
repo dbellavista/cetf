@@ -8,7 +8,7 @@
 %div{:class => "container-fluid"}
   %div{:class => "row-fluid well"}
     %div{:class => "span7"}
-      %p= @challenge.text
+      %p= @challenge.text.gsub(/\n/, '<br/>').html_safe
     %div{:class => "span4 divider"}
       %ul{:class => "nav nav-list"}
         %li.nav-header ATTACHMENTS
