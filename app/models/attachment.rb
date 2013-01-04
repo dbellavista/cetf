@@ -7,6 +7,7 @@ class Attachment < ActiveRecord::Base
     name = sanitize_filename(upload.original_filename)
     path = filename name
 
+
     i = 0
     ext = "." + name.split('.').last
     basen = File.basename(name, ext)
@@ -36,6 +37,12 @@ class Attachment < ActiveRecord::Base
 
   def self.filename(name)
     return File.join(Rails.root.join('public', 'uploads', name))
+  end
+
+  def self.check_size(attachments)
+    total = 0
+    attachments.each { |i,u| total += u.size }
+    return total < 5.megabytes
   end
 
 end

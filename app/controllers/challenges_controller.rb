@@ -213,6 +213,7 @@ class ChallengesController < ApplicationController
   def save_files
       files = []
       if !params[:attachments].nil?
+        raise "Files too big (max allowed size is 5MB)" unless Attachment.check_size(params[:attachments])
         params[:attachments].each do |id, file|
           res = Attachment.save(id, file)
           files << res unless res.nil?
@@ -246,6 +247,7 @@ class ChallengesController < ApplicationController
   end
 
   def rollbackUpload files
+    return if files.nil?
     error = ""
     files.each do |f|
       begin
