@@ -19,8 +19,11 @@
 
 # Public and tmp files #
 ########################
-public/upload/*
+public/uploads
 tmp/*
 db/development.sqlite3
 db/test.sqlite3
-config/initializers/secret_token.rb
+
+# Secret files #
+################
+# config/initializers/secret_token.rb
