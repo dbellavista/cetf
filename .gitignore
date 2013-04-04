@@ -23,6 +23,7 @@ public/uploads
 tmp/*
 db/development.sqlite3
 db/test.sqlite3
+*.swp
 
 # Secret files #
 ################
